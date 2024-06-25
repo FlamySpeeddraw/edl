@@ -1,11 +1,10 @@
-import './App.css';
+import { NavigationRoutes } from './components/Navigation/NavigationRoutes';
+import './styles/navigation.css'
 
-function App() {
+export const App = () => {
   return (
-    <div>
-      
-    </div>
+    <>
+      <NavigationRoutes />
+    </>
   );
 }
-
-export default App;
