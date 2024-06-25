@@ -73,6 +73,7 @@
 
 .button-modal-container button {
   color: white;
+  background-color: transparent;
   transition: all 0.3s ease-out;
 }
 

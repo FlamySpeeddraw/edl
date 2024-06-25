@@ -3,7 +3,7 @@ import { EdlListeChild } from "../components/EdlListeChild";
 import "./../styles/EDL/liste.css"
 import { Modal } from "../components/Modal";
 import { useNavigate } from "react-router-dom";
-import { createClasseurEdl, deleteClasseurEdl, getAllClasseursEdl, updateNomsClasseursEdl } from "../DataManager";
+import { createClasseurGC, deleteClasseurGC, getAllClasseursGC, updateNomsClasseursGC } from "../DataManager";
 import { v4 as uuid } from 'uuid';
 
 export const EdlListe = () => {
@@ -22,7 +22,7 @@ export const EdlListe = () => {
     
     useEffect(() => {
         const fetchData = async () => {
-          const result = await getAllClasseursEdl();
+          const result = await getAllClasseursGC();
           setResidences(result);
         };
     
@@ -55,17 +55,17 @@ export const EdlListe = () => {
             },2000);
         } else {
             const id = uuid();
-            createClasseurEdl(id,nomResidence,nomDossier,nomPrestation,[]);
+            createClasseurGC(id,nomResidence,nomDossier,nomPrestation,[]);
             setIsModalOpen(false);
-            navigate("/edl/" + id + "/edit/new");
+            navigate("/GC/" + id + "/edit/new");
             setNomResidence("");
             setnomDossier("");
         }
     }
 
     const deleteResidence = async (id) => {
-        await deleteClasseurEdl(id);
-        const updatedData = await getAllClasseursEdl();
+        await deleteClasseurGC(id);
+        const updatedData = await getAllClasseursGC();
         setResidences(updatedData);
     }
 
@@ -93,8 +93,8 @@ export const EdlListe = () => {
                 setErrorMessage(false);
             },2000);
         } else {
-            updateNomsClasseursEdl(selectClasseur,nomResidence,nomDossier,nomPrestation);
-            const updatedData = await getAllClasseursEdl();
+            updateNomsClasseursGC(selectClasseur,nomResidence,nomDossier,nomPrestation);
+            const updatedData = await getAllClasseursGC();
             setResidences(updatedData);            
             setSelectClasseur("");
             setnomDossier("");

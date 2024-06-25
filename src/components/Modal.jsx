@@ -1,3 +1,5 @@
+import './../styles/EDL/liste.css';
+
 export const Modal = ({isOpen,onClose,onValidate,children}) => {
     if (!isOpen) return null;
 

@@ -5,13 +5,13 @@ export const EdlListeChild = ({residenceInfos,handleDeleteResidence,handleModifi
     const [nbFiches,setNbFiches] = useState(0);
 
     useEffect(() => {
-        setNbFiches(residenceInfos.edls.length);
+        setNbFiches(residenceInfos.gcs.length);
     },[nbFiches,residenceInfos]);
     
     return (
         <>
             <li className="li-liste-residence">
-                {nbFiches > 0 ? <Link className="link-liste-residence" to={"/edl/" + residenceInfos.id + "/edit/" + residenceInfos.edls[0].id}>{residenceInfos.residence} - {residenceInfos.dossier}</Link> : <Link className="link-liste-residence" to={"/edl/" + residenceInfos.id + "/edit/new"}>{residenceInfos.residence} - {residenceInfos.dossier}</Link> }
+                {nbFiches > 0 ? <Link className="link-liste-residence" to={"/GC/" + residenceInfos.id + "/edit/" + residenceInfos.gcs[0].id}>{residenceInfos.residence} - {residenceInfos.dossier}</Link> : <Link className="link-liste-residence" to={"/gcs/" + residenceInfos.id + "/edit/new"}>{residenceInfos.residence} - {residenceInfos.dossier}</Link> }
                 <p>{nbFiches} {nbFiches > 1 ? "fiches" : "fiche"}</p>
                 <p id="modifier" onClick={() => handleModifierNom(residenceInfos.id,residenceInfos.residence,residenceInfos.dossier,residenceInfos.prestation)}>Modifier</p>
                 <button id="delete" onClick={() => handleDeleteResidence(residenceInfos.id)}>

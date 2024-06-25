@@ -1,17 +1,17 @@
 import db from './db';
 
-export const createClasseurEdl = async (id,residence,dossier,prestation,edls) => {
+export const createClasseurGC = async (id,residence,dossier,prestation,gcs) => {
   try {
-    await db.edl.add({id,residence,dossier,prestation,edls});
+    await db.gc.add({id,residence,dossier,prestation,gcs});
     console.log('Résidence créée');
   } catch (error) {
     console.error('Erreur création résidence :', error);
   }
 };
 
-export const getAllClasseursEdl = async () => {
+export const getAllClasseursGC = async () => {
   try {
-    const data = await db.edl.toArray();
+    const data = await db.gc.toArray();
     return data;
   } catch (error) {
     console.error('Erreur getAllClasseur :', error);
@@ -27,18 +27,18 @@ export const getClasseurEdl = async (id) => {
   }
 };
 
-export const deleteClasseurEdl = async (id) => {
+export const deleteClasseurGC = async (id) => {
   try {
-    await db.edl.delete(id);
+    await db.gc.delete(id);
     console.log('Data deleted successfully.');
   } catch (error) {
     console.error('Error deleting data:', error);
   }
 };
 
-export const updateNomsClasseursEdl = async (id,residence,dossier,prestation) => {
+export const updateNomsClasseursGC = async (id,residence,dossier,prestation) => {
   try {
-    await db.edl.update(id,{residence,dossier,prestation});
+    await db.gc.update(id,{residence,dossier,prestation});
     console.log('Data updated successfully.');
   } catch (error) {
     console.error('Error updating data:', error);
@@ -67,79 +67,6 @@ export const deleteEdl = async (idResidence,id) => {
     const index = result.edls.findIndex((edl) => edl.id === id);
     result.edls.splice(index,1);
     await db.edl.update(idResidence,result);
-    console.log('Data updated successfully.');
-  } catch (error) {
-    console.error('Error updating data:', error);
-  }
-}
-
-export const createClasseurDiag = async (id,residence,dossier,prestation,diags) => {
-  try {
-    await db.diag.add({id,residence,dossier,prestation,diags});
-    console.log('Résidence créée');
-  } catch (error) {
-    console.error('Erreur création résidence :', error);
-  }
-};
-
-export const getAllClasseursDiag = async () => {
-  try {
-    const data = await db.diag.toArray();
-    return data;
-  } catch (error) {
-    console.error('Erreur getAllClasseur :', error);
-  }
-};
-
-export const getClasseurDiag = async (id) => {
-  try {
-    const data = await db.diag.get(id);
-    return data;
-  } catch (error) {
-    console.error('Erreur getClasseur :', error);
-  }
-};
-
-export const deleteClasseurDiag = async (id) => {
-  try {
-    await db.diag.delete(id);
-    console.log('Data deleted successfully.');
-  } catch (error) {
-    console.error('Error deleting data:', error);
-  }
-};
-
-export const updateNomsClasseursDiag = async (id,residence,dossier,prestation) => {
-  try {
-    await db.diag.update(id,{residence,dossier,prestation});
-    console.log('Data updated successfully.');
-  } catch (error) {
-    console.error('Error updating data:', error);
-  }
-};
-
-export const updateDiag = async (idResidence,id,numeroAppartement,typeAppartement,numeroBat,numeroEtage,pieces,observationsGenerales) => {
-  try {
-    const result = await getClasseurDiag(idResidence);
-    if (result.diags.findIndex((diag) => diag.id === id) !== -1) {
-      const index = result.diags.findIndex((diag) => diag.id === id);
-      result.diags[index] = {id:id,numeroAppartement:numeroAppartement,typeAppartement:typeAppartement,numeroBat:numeroBat,numeroEtage:numeroEtage,pieces:pieces,observationsGenerales:observationsGenerales};
-    } else {
-      result.diags.push({id:id,numeroAppartement:numeroAppartement,typeAppartement:typeAppartement,numeroBat:numeroBat,numeroEtage:numeroEtage,pieces:pieces,observationsGenerales:observationsGenerales});
-    }
-    await db.diag.update(idResidence,{diags:result.diags});
-    console.log('Data updated successfully.');
-  } catch (error) {
-    console.error('Error updating data:', error);
-  }
-}
-
-export const deleteDiag = async(idResidence,id) => {
-  try {
-    const result = await getClasseurDiag(idResidence);
-    const index = result.diags.findIndex((diag) => diag.id === id);
-    result.diags.splice(index,1);
-    await db.diag.update(idResidence,result);
     console.log('Data updated successfully.');
   } catch (error) {
     console.error('Error updating data:', error);
