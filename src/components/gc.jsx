@@ -524,7 +524,7 @@ export const GC = () => {
 
     return (
             <div style={{display:"flex",rowGap:"40px",flexDirection:"column",alignItems:"center",justifyContent:"center",margin:"20px"}}>
-                <button onClick={() => save2()} style={{border:"2px solid black",backgroundColor:"white",padding:"15px",borderRadius:"10px",cursor:"pointer"}}>SAUVEGARDER</button>
+                {params.uid === "new" ? <button onClick={() => save2()} style={{border:"2px solid black",backgroundColor:"white",padding:"15px",borderRadius:"10px",cursor:"pointer"}}>SAUVEGARDER</button> : ""}
                 <table style={{borderCollapse:"collapse"}}>
                     <tbody>
                         <tr>
