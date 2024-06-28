@@ -18,9 +18,9 @@ export const getAllClasseursGC = async () => {
   }
 };
 
-export const getClasseurEdl = async (id) => {
+export const getClasseurGC = async (id) => {
   try {
-    const data = await db.edl.get(id);
+    const data = await db.gc.get(id);
     return data;
   } catch (error) {
     console.error('Erreur getClasseur :', error);
@@ -45,29 +45,44 @@ export const updateNomsClasseursGC = async (id,residence,dossier,prestation) => 
   }
 };
 
-export const updateEdl = async (idResidence,id,numeroAppartement,typeAppartement,numeroBat,numeroEtage,pieces,observationsGenerales,observationsGeneralesOpr) => {
+export const updateGC = async (idResidence,uid,gc) => {
   try {
-    const result = await getClasseurEdl(idResidence);
-    if (result.edls.findIndex((edl) => edl.id === id) !== -1) {
-      const index = result.edls.findIndex((edl) => edl.id === id);
-      result.edls[index] = {id:id,numeroAppartement:numeroAppartement,typeAppartement:typeAppartement,numeroBat:numeroBat,numeroEtage:numeroEtage,pieces:pieces,observationsGenerales:observationsGenerales,observationsGeneralesOpr:observationsGeneralesOpr};
+    const result = await getClasseurGC(idResidence);
+    if (result.gcs.findIndex((gc) => gc.uid === uid) !== -1) {
+      const index = result.gcs.findIndex((gc) => gc.uid === uid);
+      result.gcs[index] = {uid:uid,gc:gc};
     } else {
-      result.edls.push({id:id,numeroAppartement:numeroAppartement,typeAppartement:typeAppartement,numeroBat:numeroBat,numeroEtage:numeroEtage,pieces:pieces,observationsGenerales:observationsGenerales,observationsGeneralesOpr:observationsGeneralesOpr});
+      result.gcs.push({uid:uid,gc:gc});
     }
-    await db.edl.update(idResidence,{edls:result.edls});
+    await db.gc.update(idResidence,{gcs:result.gcs});
     console.log('Data updated successfully.');
   } catch (error) {
     console.error('Error updating data:', error);
   }
 }
 
-export const deleteEdl = async (idResidence,id) => {
+export const getGC = async (idResidence,uid) => {
   try {
-    const result = await getClasseurEdl(idResidence);
-    const index = result.edls.findIndex((edl) => edl.id === id);
-    result.edls.splice(index,1);
-    await db.edl.update(idResidence,result);
+    const result = await getClasseurGC(idResidence);
+    if (result.gcs.findIndex((gc) => gc.uid === uid) !== -1) {
+      const index = result.gcs.findIndex((gc) => gc.uid === uid);
+      return result.gcs[index];
+    }
+    return false;
+  } catch (error) {
+    console.error('Error get data:', error);
+  }
+}
+
+export const deleteGC = async (idResidence,uid) => {
+  try {
+    const result = await getClasseurGC(idResidence);
+    const index = result.gcs.findIndex((gc) => gc.uid === uid);
+    result.gcs.splice(index,1);
+    await db.gc.update(idResidence,result);
+    const ret = await getClasseurGC(idResidence);
     console.log('Data updated successfully.');
+    return ret;
   } catch (error) {
     console.error('Error updating data:', error);
   }
